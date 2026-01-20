@@ -2,7 +2,7 @@ local Bridge = {}
 local QBCore = nil
 
 function Bridge.Init()
-    QBCore = exports['qb-core']:GetCoreObject()
+    QBCore = exports["qb-core"]:GetCoreObject()
     return true
 end
 
@@ -11,22 +11,16 @@ function Bridge.GetPlayerData()
 end
 
 function Bridge.HasItem(itemName)
-    local itemCount = exports.ox_inventory:Search('count', itemName)
-    return itemCount > 0
+    return exports.ox_inventory:Search("count", itemName) > 0
 end
 
 function Bridge.HasBlackMoney(amount)
-    local blackMoneyCount = exports.ox_inventory:Search('count', 'black_money')
-    return blackMoneyCount >= amount
+    return exports.ox_inventory:Search("count", "black_money") >= amount
 end
 
 function Bridge.RegisterEvents()
-    RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
-    AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-        TriggerEvent('anox-moneywash:playerLoaded', QBCore.Functions.GetPlayerData())
-    end)
-    AddEventHandler('playerDropped', function()
-        TriggerEvent('anox-moneywash:playerDropped', source)
+    RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
+        TriggerEvent("sw-moneywash:playerLoaded")
     end)
 end
 
